@@ -11,7 +11,7 @@ nltk.download('punkt')
 from nltk.tokenize import sent_tokenize
 
 #%%
-folder='C:\\Users\\mail2\\OneDrive\\School\\Data Analysis\\10K'
+folder='C:\\Users\\jrvander\\OneDrive\\School\\Data Analysis\\10K'
 exist=os.path.exists(folder)
 
 #%% Pulls the 10ks for the stock and dates selected
@@ -40,7 +40,7 @@ for index in df.index:
      section_10k_item7 = extractorApi.get_section(filing_url, "7", "text")
      Final_10k.append(section_10k_item7)
      
-#with open('C:\\Users\\mail2\\OneDrive\\School\\Data Analysis\\10K\\CROX_10k_item7.txt', 'w') as f:
+#with open('C:\\Users\\jrvander\\OneDrive\\School\\Data Analysis\\10K\\GME_10k_item7.txt', 'w') as f:
 #    for item in Final_10k:
 #        f.write(item)
         
@@ -59,7 +59,7 @@ tokenizer = BertTokenizer.from_pretrained('yiyanghkust/finbert-tone')
 
 nlp = pipeline("sentiment-analysis", model=finbert, tokenizer=tokenizer)
 
-df_CROX=pd.DataFrame()
+df_GME=pd.DataFrame()
 for index in range(len(Final_10k)):
     df_sentence = txt2sentence(Final_10k[index])
     
@@ -82,8 +82,8 @@ for index in range(len(Final_10k)):
         if i[0]['label'] == 'positive':
             positive=positive+1
     
-    CROX = [{'Ticker':"CROX",'Year':'2021','Neutral':neutral,'Positive':positive,'Negative':negative}]
-    df_CROX=df_CROX.append(pd.DataFrame(CROX))
+    GME = [{'Ticker':"GME",'Year':'2021','Neutral':neutral,'Positive':positive,'Negative':negative}]
+    df_GME=df_GME.append(pd.DataFrame(GME))
             
 #%% *keep years straight before fixed
 # 2021: neutral 376
